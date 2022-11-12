@@ -1,0 +1,57 @@
+<h1>Template-driven Forms Component</h1>
+<form (ngSubmit)="action()" #formularzForm="ngForm">
+    <div class="form-group">
+        <label for="name">Name</label><br>
+        <input type="text" required id="name" [(ngModel)]="model.name" name="name" #name="ngModel">
+        <div [hidden]="name.valid || name.pristine">
+            Name is required
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="surname">Surname</label><br>
+        <input type="text" required id="surname" [(ngModel)]="model.surname" name="surname" #surname="ngModel">
+        <div [hidden]="surname.valid || surname.pristine">
+            Surname is required
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="experience">Level of experience</label><br>
+        <select class="form-control" required id="experience" [(ngModel)]="model.experience" name="experience"
+            #experience="ngModel">
+            <option value="" disabled>Choose your experience</option>
+            <option *ngFor="let exp of experiences" [value]="exp">{{exp}}</option>
+        </select>
+        <div [hidden]="experience.valid || experience.pristine">
+            Exerience is required
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="email">Email</label><br>
+        <input type="email" email required id="email" [(ngModel)]="model.email" name="email" #email="ngModel">
+        <div [hidden]="!email.errors?.required || email.pristine">
+            Email is required
+        </div>
+        <div [hidden]="!email.errors?.email">
+            Email is invalid
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="password">Password</label><br>
+        <input type="password" required minlength="8" maxlength="12" id="password" [(ngModel)]="model.password"
+            name="password" #password="ngModel">
+        <div [hidden]="!password.errors?.required || password.pristine">
+            Password is required
+        </div>
+        <div [hidden]="!password.errors?.minlength">
+            Password must be 8 to 12 characters long
+        </div>
+    </div>
+    <h3 *ngIf="formularzForm.form.valid">This form is valid, you can now press the button.</h3>
+    <br>
+    <button type="submit" [disabled]="!formularzForm.form.valid">Submit</button>
+    <h3 *ngIf="submitted">Successfuly submitted!</h3>
+</form>

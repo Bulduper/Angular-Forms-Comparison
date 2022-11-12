@@ -1,0 +1,41 @@
+<h1>Reactive Forms Component</h1>
+<form (ngSubmit)="action()" [formGroup]="reactiveForm">
+    <div class="form-group">
+        <label for="name">Name</label><br>
+        <input type="text" class="form-control" id="name" formControlName="name">
+        <div [hidden]="!name?.errors?.required || name?.pristine">Name is required</div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="surname">Surname</label><br>
+        <input type="text" class="form-control" id="surname" formControlName="surname">
+        <div [hidden]="!surname?.errors?.required || surname?.pristine">Surname is required</div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="experience">Level of experience</label><br>
+        <select class="form-control" id="experience" formControlName="experience">
+            <option value="" disabled>Choose your experience</option>
+            <option *ngFor="let exp of experiences" [value]="exp">{{exp}}</option>
+        </select>
+        <div [hidden]="!experience?.errors?.required || experience?.pristine">Surname is required</div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="email">Email</label><br>
+        <input type="text" class="form-control" id="email" formControlName="email">
+        <div [hidden]="!email?.errors?.required || email?.pristine">Email is required</div>
+        <div [hidden]="!email?.errors?.email">Email is invalid</div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="password">Password</label><br>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div [hidden]="!password?.errors?.required || password?.pristine">Password is required</div>
+        <div [hidden]="!password?.errors?.minlength">Password must be 8 to 12 characters long</div>
+    </div>
+    <h3 *ngIf="reactiveForm.valid">This form is valid, you can now press the button.</h3>
+    <br>
+    <button type="submit" [disabled]="!reactiveForm.valid">Submit</button>
+    <h3 *ngIf="submitted">Successfuly submitted!</h3>
+</form>
