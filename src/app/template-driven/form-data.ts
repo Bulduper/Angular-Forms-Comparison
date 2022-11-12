@@ -1,5 +1,5 @@
 
-export class Formularz {
+export class FormData {
 
     constructor(
         public name: String,

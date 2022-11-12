@@ -1,5 +1,5 @@
 <h1>Template-driven Forms Component</h1>
-<form (ngSubmit)="action()" #formularzForm="ngForm">
+<form (ngSubmit)="action()" #templateDrivenForm="ngForm">
     <div class="form-group">
         <label for="name">Name</label><br>
         <input type="text" required id="name" [(ngModel)]="model.name" name="name" #name="ngModel">
@@ -50,8 +50,8 @@
             Password must be 8 to 12 characters long
         </div>
     </div>
-    <h3 *ngIf="formularzForm.form.valid">This form is valid, you can now press the button.</h3>
+    <h3 *ngIf="templateDrivenForm.form.valid">This form is valid, you can now press the button.</h3>
     <br>
-    <button type="submit" [disabled]="!formularzForm.form.valid">Submit</button>
+    <button type="submit" [disabled]="!templateDrivenForm.form.valid">Submit</button>
     <h3 *ngIf="submitted">Successfuly submitted!</h3>
 </form>
