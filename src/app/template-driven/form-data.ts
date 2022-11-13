@@ -1,5 +1,5 @@
 
-export class FormData {
+export class FormDataModel {
 
     constructor(
         public name: String,

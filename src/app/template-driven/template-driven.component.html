@@ -2,7 +2,7 @@
 <form (ngSubmit)="action()" #templateDrivenForm="ngForm">
     <div class="form-group">
         <label for="name">Name</label><br>
-        <input type="text" required id="name" [(ngModel)]="model.name" name="name" #name="ngModel">
+        <input type="text" required id="name" [(ngModel)]="model.name" #name="ngModel" name="name">
         <div [hidden]="name.valid || name.pristine">
             Name is required
         </div>

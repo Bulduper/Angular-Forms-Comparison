@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormData } from './form-data';
+import { FormSenderService } from '../form-sender.service';
+import { FormDataModel } from './form-data';
 
 @Component({
   selector: 'app-template-driven',
@@ -8,16 +9,18 @@ import { FormData } from './form-data';
 })
 export class TemplateDrivenComponent implements OnInit {
   experiences = ["junior", "mid", "senior"];
-  model = new FormData('', '', '', '', '');
+  model = new FormDataModel('', '', '', '', '');
   submitted: boolean = false;
 
-  constructor() { }
+  constructor(private formSenderSvc: FormSenderService) { }
 
   ngOnInit(): void {
   }
 
   action(): void {
     console.log('Submitting!');
+    this.formSenderSvc.sendForm(this.model)
     this.submitted=true;
   }
+
 }

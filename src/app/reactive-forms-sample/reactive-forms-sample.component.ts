@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormSenderService } from '../form-sender.service';
+import { FormDataModel } from '../template-driven/form-data';
 
 @Component({
   selector: 'app-reactive-forms-sample',
@@ -8,9 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ReactiveFormsSampleComponent implements OnInit {
   reactiveForm!: FormGroup;
-  experiences = ['junior', 'mid','senior']
+  experiences = ['junior', 'mid', 'senior']
   submitted: boolean = false;
-  constructor(private readonly formBuilder: FormBuilder) { }
+  constructor(private readonly formBuilder: FormBuilder,
+    private formSenderSvc: FormSenderService) { }
 
   ngOnInit(): void {
     this.reactiveForm = this.formBuilder.group({
@@ -18,13 +21,19 @@ export class ReactiveFormsSampleComponent implements OnInit {
       surname: ['', [Validators.required]],
       experience: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(12)]]
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]]
     })
   }
 
   action(): void {
     console.log('Submitting!');
-    this.submitted=true;
+    const formData = new FormDataModel(this.reactiveForm.value.name,
+      this.reactiveForm.value.surname, 
+      this.reactiveForm.value.experience, 
+      this.reactiveForm.value.email, 
+      this.reactiveForm.value.password);
+    this.formSenderSvc.sendForm(formData)
+    this.submitted = true;
   }
 
   get name() { return this.reactiveForm.get('name'); }
